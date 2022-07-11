@@ -5,9 +5,9 @@
 <div>
 	<h4>@Model.Name</h4>
 	<div>
+		@Html.ActionLink("Back", "Index") |
 		@Html.ActionLink("Edit", "EditMovie", new {id = Model.Id}) |
-		@Html.ActionLink("Delete", "Delete", new {id = Model.Id}) |@*--------------------TO DO--------------------*@
-		@Html.ActionLink("Back", "Index")
+		@Html.ActionLink("Delete", "Delete", new {id = Model.Id})@*--------------------TO DO--------------------*@
 	</div>
 	<hr />
 	<dl class="row">
@@ -71,14 +71,25 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (SessionModel item in ViewBag.SessionsList)
+		@if (ViewBag.SessionsList != null)
+		{
+			@foreach (SessionModel item in ViewBag.SessionsList)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Session)
+					</td>
+					<td>
+						@Html.ActionLink("Details", "Session", new {id=item.Id})
+					</td>
+				</tr>
+			}
+		}
+		else
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Session)
-				</td>
-				<td>
-					@Html.ActionLink("Details", "Session", new {id=item.Id})
+					NO SESSIONS
 				</td>
 			</tr>
 		}

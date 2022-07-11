@@ -5,8 +5,6 @@ namespace MyCinemaV2.Models
 {
     public class MovieModel
     {
-        [MaxLength(10)]
-        [Range(1, uint.MaxValue)]
         public uint Id { get; set; }
 
         [Required]
@@ -32,7 +30,6 @@ namespace MyCinemaV2.Models
         public string Genre { get; set; }
 
         [Range(0, 1)]
-        [MaxLength(1)]
         public uint Status { get; set; }
     }
 }

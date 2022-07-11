@@ -5,8 +5,6 @@ namespace MyCinemaV2.Models
 {
     public class SessionModel
     {
-        [MaxLength(10)]
-        [Range(1, uint.MaxValue)]
         public uint Id { get; set; }
 
         [MaxLength(10)]

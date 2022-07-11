@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyCinemaV2.Models;
 using MyCinemaV2.Services;
+using System.Diagnostics;
 
 namespace MyCinemaV2.Controllers
 {
@@ -29,6 +31,14 @@ namespace MyCinemaV2.Controllers
         {
             MoviesTable moviesTable = new();
             return View(moviesTable.GetMovieModel(id));
+        }
+        public IActionResult UpdateMovie(MovieModel movie)
+        {
+            SessionsTable sessionTable = new();
+            //ViewBag.SessionsList = sessionTable.GetSessionsList(movie.Id);
+
+            MoviesTable moviesTable = new();
+            return View("Movie"/*, moviesTable.GetMovieModel(movie.Id)*/);
         }
     }
 }
