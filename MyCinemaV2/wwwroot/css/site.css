@@ -1,0 +1,196 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+/*---------------------INDEX----------------------------- */
+.index-container, .details-container {
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgb(0 0 0 / 1%);
+    border-radius: 1ch;
+}
+
+    .index-container img, .details-container img {
+        max-height: 475px;
+    }
+
+    .index-container h2, .details-container h2, .details-container h3 {
+        text-align: center;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+.index_item {
+    margin: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: min-content;
+    border-radius: 1ch;
+    background-color: white;
+}
+
+    .index_item img {
+        border-radius: 1ch 1ch 0 0;
+    }
+
+    .index_item .text-box {
+        margin: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .index_item .button, .details-item .button {
+        background-color: #ff9000;
+        color: #fff;
+        letter-spacing: 1px;
+        border: none;
+        border-radius: 1ch;
+        padding: 0 1rem;
+        box-shadow: 0 3pt 3pt 0 rgb(0 0 0 / 14%), 0 1pt 7pt 0 rgb(0 0 0 / 12%), 0 3pt 1pt -1pt rgb(0 0 0 / 20%);
+    }
+/*---------------------DETAILS----------------------------- */
+.details-container img {
+    border-radius: 1ch;
+}
+
+.details-item {
+    margin: inherit;
+    display: flex;
+}
+
+.info-container {
+    margin-left: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .info-container .text-box {
+    }
+
+.scheme-container {
+    border-radius: 1ch;
+    background-color: white;
+}
+
+    .scheme-container input {
+        margin: 0 5pt 10pt;
+    }
+
+.session-scheme {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.seats-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+}
+
+.screen {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAksAAAAQCAYAAAAGazsfAAAACXBIWXMAAAsSAAALEgHS3X78AAACpklEQVR4nO2cwVHDMBBFxQx36AA6IEfrBCXQEZRCCZSQnJRj6CB0ABWEMWMYMLsrWTGxLL83w0VxEhPb0tPX2meHw8EBAGxDuHbOXR/xQ9wV9iPuu78c3hrvd9PuPgCUArIEcEK2Iaycc5fGN6YIS/v+VcJet9vdcHxPwksrWAlftB5hm33jfa4EAkAGyBIskoi0WK/FZOaWMwomxhK3tt1KzHbGe3eN9ylCCFAdyBIUwzYEKzHRlngseWk/64IjnMx7ZCCNYQ20UxBL8Szac+qqoP+ldDbK/llypp0vLIFCcSBLkIyRxgxtX/JA9JpQRzPGUs0njfdJ20E+Ecn/Scp2KdssOb3UpEw7zzUhIyWDQSBLlWEIjZTMaKnMEhIZS1qswuDYMgb1JDAp2xCsQntLxmKitgRJGyJjWl+AiFUIsjQRitRonZW2bY3Fu1pnZS3xaLNKxAXgn4kka9YyuSZ1tU7WpL5Nm5hJfRr92YQgSwkoYiN1AlqnUcuMTEtjtAtea6cmAQAGYUjZ0FrH2iaakoRJk0upP6YvTqQ6WTIuKOmikdrmLjaa0GjJjBgvcwEBwJLIkDGt5KGGyXGqgIlSVmMCVoQsKclN7XKj3Xkkxq+SAFG8CwBQPoaIDS3HmOvypDSJl8Y1sa0E+cqWJaGIUDrA0lLVHA+4dKC14j5JYCj4AwCAUTGeui8FC1o5yRzvTJbG5KTkKzdk+CVLnQDdC9IzN8GRHsq26AgRAAAgxgilLHPzBWmVp3WAdeP901dDX5YenXMPp9zLjmxLJLUBAAAoF6XUZkjbFPK1abz/lsHz3otDpENKb/rxlrRURfEwAADAQlDG/Oya2yPqnLPvhOzL0nP3YX+kB8EBAACAqRlTvpS6r1V/tYvnLAEAAABoOOc+AMfwFPCvETNoAAAAAElFTkSuQmCC) center 0 no-repeat;
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+}
+
+.seats-scheme {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 22rem;
+}
+
+.seat-available {
+    background-color: #56E369;
+    border: none;
+    border-radius: 1ch;
+    width: 2rem;
+    height: 2rem;
+    margin: 1pt !important;
+    text-align: center;
+}
+
+.seat-occupied {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1ch !important;
+    margin: 1pt;
+}

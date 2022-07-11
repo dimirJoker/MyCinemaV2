@@ -1,0 +1,67 @@
+﻿@model MyCinemaV2.Models.MovieModel
+@{
+	ViewData["Title"] = @Model.Name;
+}
+<div class="text-center">
+	<h1 class="display-4">@Model.Name</h1>
+</div>
+<hr>
+<div class="details-container box-shadow border-bottom border-right">
+	<div class="details-item">
+		<img class="border" src="@Model.Thumbnail">
+		<div class="info-container">
+			<div class="text-box">
+				<div style="display: flex; justify-content: space-between;">
+					<div>
+						<strong>Жанр: </strong>
+						<span>@Model.Genre;</span>
+					</div>
+					<a asp-action="Session" asp-route-id="@Model.Id">
+						<input type="button" class="button" value="ВЕРНУТЬСЯ НАЗАД">
+					</a>
+				</div>
+				<strong>Продолжительность: </strong>
+				<span>@Model.Duration</span>
+				<br>
+				<br>
+				<strong>Описание: </strong>
+				<p>@Model.Description</p>
+			</div>
+			<div class="scheme-container box-shadow border-bottom border-right">
+				<h2 class="border-bottom">Выбор места</h2>
+				<div class="seats-container">
+					@if (ViewBag.SeatsList != null && ViewBag.SeatsList.Count() != 0)
+					{
+						<div class="d-flex flex-column align-items-center" style="width: -webkit-fill-available; margin-bottom:1rem;">
+							<div class="screen">
+								<strong>
+									<em>ЭКРАН</em>
+								</strong>
+							</div>
+						</div>
+						<div class="seats-scheme">
+							@foreach (SeatModel seat in ViewBag.SeatsList)
+							{
+								@if (seat.Status == 0)
+								{
+									<a asp-action="Ticket" asp-route-movieId="@Model.Id" asp-route-seatId="@seat.Id">
+										<input type="button" class="seat-available" value="@seat.Seat_Number" title="ряд: @seat.Seat_Row, место: @seat.Seat_Number">
+									</a>
+								}
+								else
+								{
+									<img class="seat-occupied" src="https://bilet.vkino.com.ua/i/scheme/seat-occupied.png">
+								}
+							}
+						</div>
+						<small>*цена билета: $@Model.Price</small>
+					}
+					else
+					{
+						<h3 class="display-4">NO SEATS</h3>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MyCinemaV2.Models.MovieModel>
+@{
+	ViewData["Title"] = "Главная страница";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Welcome</h1>
+</div>
+<hr>
+<div class="index-container box-shadow border-bottom border-right">
+	@if (Model != null && Model.Count() != 0)
+	{
+		@foreach (var movie in Model)
+		{
+			<div class="index_item box-shadow border-bottom border-right">
+				<img class="border-bottom" src="@movie.Thumbnail">
+				<div class="text-box">
+					<h2 class="border-bottom">@movie.Name</h2>
+					<small>Жанр: @movie.Genre</small>
+					<br>
+					<p>@movie.Description.Substring(0, Math.Min(150, movie.Description.Length))<span>...</span></p>
+					<a asp-action="Session" asp-route-id="@movie.Id">
+						<input type="button" class="button" value="ВЫБРАТЬ СЕАНС">
+					</a>
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<h2 class="display-4"> NO DATA</h2>
+	}
+</div>

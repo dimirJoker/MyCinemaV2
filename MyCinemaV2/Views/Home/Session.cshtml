@@ -1,0 +1,53 @@
+﻿@model MyCinemaV2.Models.MovieModel
+@{
+	ViewData["Title"] = @Model.Name;
+}
+<div class="text-center">
+	<h1 class="display-4">@Model.Name</h1>
+</div>
+<hr>
+<div class="details-container box-shadow border-bottom border-right">
+	<div class="details-item">
+		<img class="border" src="@Model.Thumbnail">
+		<div class="info-container">
+			<div class="text-box">
+				<div style="display: flex; justify-content: space-between;">
+					<div>
+						<strong>Жанр: </strong>
+						<span>@Model.Genre;</span>
+					</div>
+					<a asp-action="index">
+						<input type="button" class="button" value="ВЕРНУТЬСЯ НАЗАД">
+					</a>
+				</div>
+				<strong>Продолжительность: </strong>
+				<span>@Model.Duration</span>
+				<br>
+				<br>
+				<strong>Описание: </strong>
+				<p>@Model.Description</p>
+			</div>
+			<div class="scheme-container box-shadow border-bottom border-right">
+				<h2 class="border-bottom">Выбор сеанса</h2>
+				<div class="session-scheme">
+					@if (ViewBag.SessionsList != null && ViewBag.SessionsList.Count() != 0)
+					{
+						@foreach (SessionModel session in ViewBag.SessionsList)
+						{
+							@if (session.Session > DateTime.Now)
+							{
+								<a asp-action="Seat" asp-route-sessionId="@session.Id" asp-route-movieId="@Model.Id">
+									<input type="button" class="button" value="@session.Session">
+								</a>
+							}
+						}
+					}
+					else
+					{
+						<h3 class="display-4">NO SESSIONS</h3>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
