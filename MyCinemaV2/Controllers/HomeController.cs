@@ -23,7 +23,7 @@ namespace MyCinemaV2.Controllers
 
         public IActionResult Session(uint id)
         {
-            SessionTable sessionTable = new();
+            SessionsTable sessionTable = new();
             ViewBag.SessionsList = sessionTable.GetSessionsList(id);
 
             MoviesTable moviesTable = new();

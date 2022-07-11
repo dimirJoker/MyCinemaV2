@@ -17,5 +17,10 @@ namespace MyCinemaV2.Controllers
                 return RedirectToAction("Login", "Home");
             }
         }
+        public IActionResult Edit(uint id)
+        {
+            MoviesTable moviesTable = new();
+            return View(moviesTable.GetMovieModel(id));
+        }
     }
 }

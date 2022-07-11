@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MyCinemaV2.Services
 {
-    public class SessionTable
+    public class SessionsTable
     {
         private static MySqlConnectionStringBuilder _connectionStringBuilder = new()
         {

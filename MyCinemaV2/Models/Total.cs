@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyCinemaV2.Models
 {
-    public class MovieModel
+    public class Total
     {
+        [Range(1,uint.MaxValue)]
         [MaxLength(10)]
-        [Range(1, uint.MaxValue)]
         public uint Id { get; set; }
 
         [Required]
@@ -23,7 +23,7 @@ namespace MyCinemaV2.Models
         [DataType(DataType.ImageUrl)]
         public string Thumbnail { get; set; }
 
-        [Range(0, float.MaxValue)]
+        [Range(0,float.MaxValue)]
         [DataType(DataType.Currency)]
         public float Price { get; set; }
 
@@ -31,8 +31,10 @@ namespace MyCinemaV2.Models
         [StringLength(50)]
         public string Genre { get; set; }
 
-        [Range(0, 1)]
+        [Range(0,1)]
         [MaxLength(1)]
         public uint Status { get; set; }
+
+
     }
 }
