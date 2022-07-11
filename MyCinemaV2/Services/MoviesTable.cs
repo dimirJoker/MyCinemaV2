@@ -57,7 +57,7 @@ namespace MyCinemaV2.Services
 
             using (_connection)
             {
-                MySqlCommand cmd = new("SELECT * FROM moviestable", _connection);
+                MySqlCommand cmd = new("SELECT * FROM moviestable ORDER BY Status DESC", _connection);
 
                 try
                 {

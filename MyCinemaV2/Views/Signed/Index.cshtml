@@ -2,9 +2,6 @@
 @{
 	ViewData["Title"] = "Панель управления";
 }
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
 <table class="table">
 	<thead>
 		<tr>
@@ -14,7 +11,7 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Status)
 			</th>
-			<th></th>
+			<th><a asp-action="Create">Create New</a></th>@*--------------------TO DO--------------------*@
 		</tr>
 	</thead>
 	<tbody>
@@ -28,10 +25,7 @@
 					@Html.DisplayFor(modelItem => item.Status)
 				</td>
 				<td>
-					@*@Html.ActionLink("Title", "Action", new { /* id=item.PrimaryKey */ })*@
-					@Html.ActionLink("Edit", "Edit", new {id=item.Id})
-					@*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-					@*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+					@Html.ActionLink("Details", "Movie", new {id=item.Id})
 				</td>
 			</tr>
 		}

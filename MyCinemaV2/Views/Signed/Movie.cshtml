@@ -1,0 +1,86 @@
+﻿@model MyCinemaV2.Models.MovieModel
+@{
+	ViewData["Title"] = Model.Name;
+}
+<div>
+	<h4>@Model.Name</h4>
+	<div>
+		@Html.ActionLink("Edit", "EditMovie", new {id = Model.Id}) |
+		@Html.ActionLink("Delete", "Delete", new {id = Model.Id}) |@*--------------------TO DO--------------------*@
+		@Html.ActionLink("Back", "Index")
+	</div>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Id)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Id)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Duration)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Duration)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Thumbnail)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Thumbnail)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Price)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Price)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Genre)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Genre)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Status)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Status)
+		</dd>
+	</dl>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Sessions
+			</th>
+			<th><a asp-action="Create">Create New Session</a></th>@*--------------------TO DO--------------------*@
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (SessionModel item in ViewBag.SessionsList)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Session)
+				</td>
+				<td>
+					@Html.ActionLink("Details", "Session", new {id=item.Id})
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

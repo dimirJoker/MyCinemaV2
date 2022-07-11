@@ -30,14 +30,7 @@
 			<div class="scheme-container box-shadow border-bottom border-right">
 				<h2 class="border-bottom">Ваш билет</h2>
 				<div class="ticket-container">
-					@if (ViewBag.Seat != null)
-					{
-						<img src="https://chart.googleapis.com/chart?chs=145x145&cht=qr&chl=@Model.Id@ViewBag.Seat.Id" style="margin: 1rem;">
-					}
-					else
-					{
-						<h3 class="display-4">NO TICKET</h3>
-					}
+					<img src="https://chart.googleapis.com/chart?chs=145x145&cht=qr&chl=@Model.Id@ViewBag.Seat.Id" style="margin: 1rem;">
 				</div>
 			</div>
 		</div>
