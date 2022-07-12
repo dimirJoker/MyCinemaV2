@@ -1,53 +1,79 @@
-﻿@model IEnumerable<MyCinemaV2.Models.SeatModel>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Session_Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Seat_Row)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Seat_Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Session_Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seat_Row)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seat_Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+﻿@model MyCinemaV2.Models.SessionModel
+@{
+	ViewData["Title"] = "Редактирование сеанса";
 }
-    </tbody>
+<h4>Редактирование сеанса</h4>
+@Html.ActionLink("Back", "Movie", new {id = Model.Movie_Id})
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="EditSession">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Id" class="control-label"></label>
+				<input asp-for="Id" type="number" class="form-control" min="@Model.Id" max="@Model.Id" />
+				<span asp-validation-for="Id" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Session" class="control-label"></label>
+				<input asp-for="Session" class="form-control" />
+				<span asp-validation-for="Session" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Session ID</th>
+			<th>Seat ID</th>
+			<th>Seat number</th>
+			<th>Status</th>
+			<th>Редактирование места</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (ViewBag.SeatsList != null && ViewBag.SeatsList.Count > 0)
+		{
+			@foreach (SeatModel seat in ViewBag.SeatsList)
+			{
+				<form asp-action="EditSeat">
+				<tr>
+					<td>
+						<input asp-for="@seat.Session_Id" type="number" class="form-control" min="@seat.Session_Id" max="@seat.Session_Id" />
+						<span asp-validation-for="@seat.Session_Id" class="text-danger"></span>
+					</td>
+					<td>
+						<input asp-for="@seat.Id" type="number" class="form-control" min="@seat.Id" max="@seat.Id" />
+						<span asp-validation-for="@seat.Id" class="text-danger"></span>
+					</td>
+					<td>
+							@seat.Seat_Number
+					</td>
+					<td>
+						<input asp-for="@seat.Status" type="number" class="form-control" min="0" max="1" />
+						<span asp-validation-for="@seat.Status" class="text-danger"></span>
+					</td>
+					<td>
+						<input type="submit" value="Save" class="btn btn-primary" />
+					</td>
+				</tr>
+				</form>
+			}
+		}
+		else
+		{
+			<tr>
+				<td>NO DATA</td>
+			</tr>
+		}
+	</tbody>
 </table>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

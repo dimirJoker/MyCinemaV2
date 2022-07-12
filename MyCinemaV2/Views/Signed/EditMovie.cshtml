@@ -2,7 +2,10 @@
 @{
 	ViewData["Title"] = Model.Name;
 }
-<h4>@Model.Name</h4>
+<h4>Редактирование</h4>
+<div>
+	@Html.ActionLink("Back", "Movie", new {id = Model.Id})
+</div>
 <hr />
 <div class="row">
 	<div class="col-md-4">

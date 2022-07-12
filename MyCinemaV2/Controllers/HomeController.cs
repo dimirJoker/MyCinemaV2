@@ -20,7 +20,6 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             return View(moviesTable.GetMoviesList(1));
         }
-
         public IActionResult Session(uint id)
         {
             SessionsTable sessionTable = new();
@@ -29,7 +28,6 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             return View(moviesTable.GetMovieModel(id));
         }
-
         public IActionResult Seat(uint movieId, uint sessionId)
         {
             SeatsTable seatsTable = new();
@@ -38,16 +36,15 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             return View(moviesTable.GetMovieModel(movieId));
         }
-
         public IActionResult Ticket(uint movieId, uint seatId)
         {
             SeatsTable seatsTable = new();
+            seatsTable.Buy(seatId);
             ViewBag.Seat = seatsTable.GetSeatModel(seatId);
 
             MoviesTable moviesTable = new();
             return View(moviesTable.GetMovieModel(movieId));
         }
-
         public IActionResult Login()
         {
             return View();

@@ -54,7 +54,7 @@ namespace MyCinemaV2.Services
 
             using (_connection)
             {
-                MySqlCommand cmd = new("UPDATE seatstable SET Status = 1 WHERE Id = @id; SELECT * FROM seatstable WHERE Id = @id;", _connection);
+                MySqlCommand cmd = new("SELECT * FROM seatstable WHERE Id = @id;", _connection);
                 cmd.Parameters.AddWithValue("@id", id);
 
                 try
@@ -79,6 +79,43 @@ namespace MyCinemaV2.Services
                 }
             }
             return seat;
+        }
+        public void Update(SeatModel seat)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("UPDATE seatstable SET Status = @status WHERE Id = @id", _connection);
+                cmd.Parameters.AddWithValue("@id", seat.Id);
+                cmd.Parameters.AddWithValue("@status", seat.Status);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+        public void Buy(uint id)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("UPDATE seatstable SET Status = 1 WHERE Id = @id", _connection);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
     }
 }

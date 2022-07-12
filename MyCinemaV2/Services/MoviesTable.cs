@@ -120,7 +120,7 @@ namespace MyCinemaV2.Services
             }
             return movie;
         }
-        public void UpdateMovieModel(MovieModel movie)
+        public void Update(MovieModel movie)
         {
             using (_connection)
             {
@@ -145,7 +145,7 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void DeleteMovieModel(uint id)
+        public void Delete(uint id)
         {
             using (_connection)
             {

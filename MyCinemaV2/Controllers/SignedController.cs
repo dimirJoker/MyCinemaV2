@@ -35,21 +35,36 @@ namespace MyCinemaV2.Controllers
         public IActionResult UpdateMovie(MovieModel movie)
         {
             MoviesTable moviesTable = new();
-            moviesTable.UpdateMovieModel(movie);
+            moviesTable.Update(movie);
 
             return RedirectToAction("Movie", new { id = movie.Id });
         }
         public IActionResult DeleteMovie(uint id)
         {
             MoviesTable moviesTable = new();
-            moviesTable.DeleteMovieModel(id);
+            moviesTable.Delete(id);
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
 
         public IActionResult Session(uint id)
         {
-            return View();
+            SeatsTable seatsTable = new();
+            ViewBag.SeatsList = seatsTable.GetSeatsList(id);
+
+            SessionsTable sessionsTable = new();
+            return View(sessionsTable.GetSessionModel(id));
+        }
+        public IActionResult EditSession(SessionModel session) /*===========TO DEBUG===========*/
+        {
+            return RedirectToAction("Session", new { id = session.Id });
+        }
+        public IActionResult EditSeat(SeatModel seat)
+        {
+            SeatsTable seatsTable = new();
+            seatsTable.Update(seat);
+
+            return RedirectToAction("Session", new { id = seat.Session_Id });
         }
     }
 }

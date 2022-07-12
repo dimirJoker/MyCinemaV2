@@ -7,10 +7,9 @@ namespace MyCinemaV2.Models
     {
         public uint Id { get; set; }
 
-        [MaxLength(10)]
-        [Range(1, uint.MaxValue)]
         public uint Movie_Id { get; set; }
 
+        [Required]
         public DateTime Session { get; set; }
     }
 }

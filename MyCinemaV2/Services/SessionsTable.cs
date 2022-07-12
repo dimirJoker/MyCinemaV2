@@ -46,5 +46,35 @@ namespace MyCinemaV2.Services
             }
             return list;
         }
+        public SessionModel GetSessionModel(uint id)
+        {
+            SessionModel session = null;
+
+            using (_connection)
+            {
+                MySqlCommand cmd = new("SELECT * FROM sessiontable WHERE Id = @id;", _connection);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        session = new SessionModel
+                        {
+                            Id = (uint)reader[0],
+                            Movie_Id = (uint)reader[1],
+                            Session = (DateTime)reader[2]
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            return session;
+        }
     }
 }
