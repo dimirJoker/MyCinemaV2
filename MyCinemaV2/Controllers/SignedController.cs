@@ -45,13 +45,23 @@ namespace MyCinemaV2.Controllers
             moviesTable.Delete(id);
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
-        }
-        public IActionResult CreateMovie()
+        }/*--------------------TO DO--------------------*/
+        public IActionResult CreateMovie(MovieModel movie)
         {
-            return View();
+            if (movie.Name == null)
+            {
+                return View();
+            }
+            else
+            {
+                MoviesTable moviesTable = new();
+                moviesTable.Create(movie);
+
+                return RedirectToAction("Index", new { Username = "root", Password = "root" });
+            }
         }
 
-        public IActionResult Session(uint id)
+        public IActionResult EditSession(uint id)
         {
             SeatsTable seatsTable = new();
             ViewBag.SeatsList = seatsTable.GetSeatsList(id);
@@ -59,16 +69,20 @@ namespace MyCinemaV2.Controllers
             SessionsTable sessionsTable = new();
             return View(sessionsTable.GetSessionModel(id));
         }
-        public IActionResult EditSession(SessionModel session) /*===========TO DEBUG===========*/
+        public IActionResult UpdateSession(SessionModel session) /*===========TO DEBUG===========*/
         {
             return RedirectToAction("Session", new { id = session.Id });
         }
-        public IActionResult EditSeat(SeatModel seat)
+        public IActionResult DeleteSession(uint id)/*--------------------TO DO--------------------*/
+        {
+            return null;
+        }
+        public IActionResult UpdateSeat(SeatModel seat)
         {
             SeatsTable seatsTable = new();
             seatsTable.Update(seat);
 
-            return RedirectToAction("Session", new { id = seat.Session_Id });
+            return RedirectToAction("EditSession", new { id = seat.Session_Id });
         }
     }
 }

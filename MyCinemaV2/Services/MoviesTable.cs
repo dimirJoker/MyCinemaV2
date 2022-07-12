@@ -167,7 +167,7 @@ namespace MyCinemaV2.Services
         {
             using (_connection)
             {
-                MySqlCommand cmd = new("", _connection);
+                MySqlCommand cmd = new("INSERT INTO moviestable (Name, Description, Duration, Thumbnail, Price, Genre, Status) VALUES (@name, @description, @duration, @thumbnail, @price, @genre, @status)", _connection);
                 cmd.Parameters.AddWithValue("@name", movie.Name);
                 cmd.Parameters.AddWithValue("@description", movie.Description);
                 cmd.Parameters.AddWithValue("@duration", movie.Duration);

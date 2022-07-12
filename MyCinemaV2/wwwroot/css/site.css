@@ -84,6 +84,7 @@ body {
 
     .index-container img, .details-container img {
         max-height: 475px;
+        max-width: 335px;
     }
 
     .index-container h2, .details-container h2, .details-container h3 {
