@@ -163,5 +163,29 @@ namespace MyCinemaV2.Services
                 }
             }
         }
+        public void Create(MovieModel movie)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("", _connection);
+                cmd.Parameters.AddWithValue("@name", movie.Name);
+                cmd.Parameters.AddWithValue("@description", movie.Description);
+                cmd.Parameters.AddWithValue("@duration", movie.Duration);
+                cmd.Parameters.AddWithValue("@thumbnail", movie.Thumbnail);
+                cmd.Parameters.AddWithValue("@price", movie.Price);
+                cmd.Parameters.AddWithValue("@genre", movie.Genre);
+                cmd.Parameters.AddWithValue("@status", movie.Status);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
     }
 }

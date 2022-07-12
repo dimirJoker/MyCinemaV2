@@ -67,7 +67,7 @@
 			<th>
 				Sessions
 			</th>
-			<th><a asp-action="Create">Create New Session</a></th>@*--------------------TO DO--------------------*@
+			<th><a asp-action="Create">Create New</a></th>@*--------------------TO DO--------------------*@
 		</tr>
 	</thead>
 	<tbody>
@@ -80,7 +80,7 @@
 						@Html.DisplayFor(modelItem => item.Session)
 					</td>
 					<td>
-						@Html.ActionLink("Details", "Session", new {id=item.Id})@*--------------------TO DO--------------------*@
+						@Html.ActionLink("Details", "Session", new {id=item.Id})
 					</td>
 				</tr>
 			}

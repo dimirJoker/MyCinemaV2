@@ -46,6 +46,10 @@ namespace MyCinemaV2.Controllers
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
+        public IActionResult CreateMovie()
+        {
+            return View();
+        }
 
         public IActionResult Session(uint id)
         {
