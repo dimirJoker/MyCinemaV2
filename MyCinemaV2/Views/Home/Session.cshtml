@@ -30,7 +30,7 @@
 			<div class="scheme-container box-shadow border-bottom border-right">
 				<h2 class="border-bottom">Выбор сеанса</h2>
 				<div class="session-scheme">
-					@if (ViewBag.SessionsList != null && ViewBag.SessionsList.Count != 0)
+					@if (ViewBag.SessionsList != null && ViewBag.SessionsList.Count > 0)
 					{
 						@foreach (SessionModel session in ViewBag.SessionsList)
 						{

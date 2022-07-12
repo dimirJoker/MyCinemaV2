@@ -15,18 +15,27 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model)
+		@if (Model != null && Model.Count() > 0)
+		{
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Status)
+					</td>
+					<td>
+						@Html.ActionLink("Details", "Movie", new {id=item.Id})
+					</td>
+				</tr>
+			}
+		}
+		else
 		{
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Name)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Status)
-				</td>
-				<td>
-					@Html.ActionLink("Details", "Movie", new {id=item.Id})
-				</td>
+				<td>NO DATA</td>
 			</tr>
 		}
 	</tbody>

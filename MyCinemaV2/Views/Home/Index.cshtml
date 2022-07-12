@@ -7,7 +7,7 @@
 </div>
 <hr>
 <div class="index-container box-shadow border-bottom border-right">
-	@if (Model != null && Model.Count() != 0)
+	@if (Model != null && Model.Count() > 0)
 	{
 		@foreach (var movie in Model)
 		{
@@ -17,7 +17,7 @@
 					<h2 class="border-bottom">@movie.Name</h2>
 					<small>Жанр: @movie.Genre</small>
 					<br>
-					<p>@movie.Description.Substring(0, Math.Min(150, movie.Description.Length))<span>...</span></p>
+					<p>@movie.Description.Substring(0, Math.Min(145, movie.Description.Length))<span>...</span></p>
 					<a asp-action="Session" asp-route-id="@movie.Id">
 						<input type="button" class="button" value="ВЫБРАТЬ СЕАНС">
 					</a>
@@ -27,6 +27,6 @@
 	}
 	else
 	{
-		<h2 class="display-4"> NO DATA</h2>
+		<h2 class="display-4">NO DATA</h2>
 	}
 </div>

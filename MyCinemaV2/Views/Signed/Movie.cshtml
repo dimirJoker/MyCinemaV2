@@ -5,9 +5,9 @@
 <div>
 	<h4>@Model.Name</h4>
 	<div>
-		@Html.ActionLink("Back", "Index") |
+		@Html.ActionLink("Back", "Index", new {Username = "root", Password = "root"}) |
 		@Html.ActionLink("Edit", "EditMovie", new {id = Model.Id}) |
-		@Html.ActionLink("Delete", "Delete", new {id = Model.Id})@*--------------------TO DO--------------------*@
+		@Html.ActionLink("Delete", "DeleteMovie", new {id = Model.Id})
 	</div>
 	<hr />
 	<dl class="row">
@@ -71,7 +71,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if (ViewBag.SessionsList != null)
+		@if (ViewBag.SessionsList != null && ViewBag.SessionsList.Count > 0)
 		{
 			@foreach (SessionModel item in ViewBag.SessionsList)
 			{
@@ -80,7 +80,7 @@
 						@Html.DisplayFor(modelItem => item.Session)
 					</td>
 					<td>
-						@Html.ActionLink("Details", "Session", new {id=item.Id})
+						@Html.ActionLink("Details", "Session", new {id=item.Id})@*--------------------TO DO--------------------*@
 					</td>
 				</tr>
 			}
@@ -88,9 +88,7 @@
 		else
 		{
 			<tr>
-				<td>
-					NO SESSIONS
-				</td>
+				<td>NO DATA</td>
 			</tr>
 		}
 	</tbody>

@@ -120,5 +120,48 @@ namespace MyCinemaV2.Services
             }
             return movie;
         }
+        public void UpdateMovieModel(MovieModel movie)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("UPDATE moviestable SET Name = @name, Description = @description, Duration = @duration, Thumbnail = @thumbnail, Price = @price, Genre = @genre, Status = @status WHERE Id = @id", _connection);
+                cmd.Parameters.AddWithValue("@id", movie.Id);
+                cmd.Parameters.AddWithValue("@name", movie.Name);
+                cmd.Parameters.AddWithValue("@description", movie.Description);
+                cmd.Parameters.AddWithValue("@duration", movie.Duration);
+                cmd.Parameters.AddWithValue("@thumbnail", movie.Thumbnail);
+                cmd.Parameters.AddWithValue("@price", movie.Price);
+                cmd.Parameters.AddWithValue("@genre", movie.Genre);
+                cmd.Parameters.AddWithValue("@status", movie.Status);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+        public void DeleteMovieModel(uint id)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("DELETE FROM moviestable WHERE Id = @id", _connection);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
     }
 }
