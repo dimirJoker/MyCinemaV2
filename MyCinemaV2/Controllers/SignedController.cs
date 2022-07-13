@@ -22,10 +22,26 @@ namespace MyCinemaV2.Controllers
         public IActionResult Movie(uint id)
         {
             SessionsTable sessionTable = new();
-            ViewBag.SessionsList = sessionTable.GetSessionsList(id);
+            //ViewBag.SessionsList = sessionTable.GetSessionsList(id);
 
             MoviesTable moviesTable = new();
-            return View(moviesTable.GetMovieModel(id));
+            //moviesTable.GetMovieModel(id)
+
+            return View();
+        }
+        public IActionResult CreateMovie(MovieModel movie)
+        {
+            if (movie.Name == null)
+            {
+                return View();
+            }
+            else
+            {
+                MoviesTable moviesTable = new();
+                moviesTable.Create(movie);
+
+                return RedirectToAction("Index", new { Username = "root", Password = "root" });
+            }
         }
         public IActionResult EditMovie(uint id)
         {
@@ -46,20 +62,6 @@ namespace MyCinemaV2.Controllers
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }/*--------------------TO DO--------------------*/
-        public IActionResult CreateMovie(MovieModel movie)
-        {
-            if (movie.Name == null)
-            {
-                return View();
-            }
-            else
-            {
-                MoviesTable moviesTable = new();
-                moviesTable.Create(movie);
-
-                return RedirectToAction("Index", new { Username = "root", Password = "root" });
-            }
-        }
 
         public IActionResult EditSession(uint id)
         {

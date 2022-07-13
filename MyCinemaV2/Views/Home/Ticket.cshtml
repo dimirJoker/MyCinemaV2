@@ -1,36 +1,36 @@
-﻿@model MyCinemaV2.Models.MovieModel
+﻿@model MyCinemaV2.Models.ViewModel
 @{
-	ViewData["Title"] = @Model.Name;
+	ViewData["Title"] = @Model.MovieModel.Name;
 }
 <div class="text-center">
-	<h1 class="display-4">@Model.Name</h1>
+	<h1 class="display-4">@Model.MovieModel.Name</h1>
 </div>
 <hr>
 <div class="details-container box-shadow border-bottom border-right">
 	<div class="details-item">
-		<img class="border" src="@Model.Thumbnail">
+		<img class="border" src="@Model.MovieModel.Thumbnail">
 		<div class="info-container">
 			<div class="text-box">
 				<div style="display: flex; justify-content: space-between;">
 					<div>
 						<strong>Жанр: </strong>
-						<span>@Model.Genre;</span>
+						<span>@Model.MovieModel.Genre;</span>
 					</div>
-					<a asp-action="Seat" asp-route-movieId="@Model.Id" asp-route-sessionId="@ViewBag.Seat.Session_Id">
+					<a asp-action="Seat" asp-route-movieId="@Model.MovieModel.Id" asp-route-sessionId="@Model.SeatModel.Session_Id">
 						<input type="button" class="button" value="ВЕРНУТЬСЯ НАЗАД">
 					</a>
 				</div>
 				<strong>Продолжительность: </strong>
-				<span>@Model.Duration</span>
+				<span>@Model.MovieModel.Duration</span>
 				<br>
 				<br>
 				<strong>Описание: </strong>
-				<p>@Model.Description</p>
+				<p>@Model.MovieModel.Description</p>
 			</div>
 			<div class="scheme-container box-shadow border-bottom border-right">
 				<h2 class="border-bottom">Ваш билет</h2>
 				<div class="ticket-container">
-					<img src="https://chart.googleapis.com/chart?chs=145x145&cht=qr&chl=@Model.Id@ViewBag.Seat.Id" style="margin: 1rem;">
+					<img src="https://chart.googleapis.com/chart?chs=145x145&cht=qr&chl=@Model.MovieModel.Id@Model.SeatModel.Session_Id@Model.SeatModel.Id" style="margin: 1rem;">
 				</div>
 			</div>
 		</div>

@@ -5,7 +5,7 @@ namespace MyCinemaV2.Models
 {
     public class MovieModel
     {
-        public uint Id { get; set; }
+        public uint? Id { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -15,7 +15,7 @@ namespace MyCinemaV2.Models
         public string Description { get; set; }
 
         [DataType(DataType.Time)]
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
         [Required]
         [DataType(DataType.ImageUrl)]
@@ -23,13 +23,13 @@ namespace MyCinemaV2.Models
 
         [Range(0, float.MaxValue)]
         [DataType(DataType.Currency)]
-        public float Price { get; set; }
+        public float? Price { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Genre { get; set; }
 
         [Range(0, 1)]
-        public uint Status { get; set; }
+        public uint? Status { get; set; }
     }
 }
