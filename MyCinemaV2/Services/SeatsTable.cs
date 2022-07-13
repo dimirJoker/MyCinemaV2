@@ -16,7 +16,7 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public List<SeatModel> GetList(uint sessionId)
+        public List<SeatModel> GetListBySessionId(uint sessionId)
         {
             List<SeatModel> list = new();
 
@@ -104,7 +104,7 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void SetStatusById(uint id, uint status)
+        public void SetStatus(uint id, uint status)
         {
             using (_connection)
             {

@@ -1,5 +1,4 @@
 ﻿@model MyCinemaV2.Models.ViewModel
-@*@model MyCinemaV2.Models.SessionModel*@
 @{
 	ViewData["Title"] = "Редактирование сеанса";
 }
@@ -10,6 +9,11 @@
 	<div class="col-md-4">
 		<form asp-action="UpdateSession">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="SessionModel.Movie_Id" class="control-label"></label>
+				<input asp-for="SessionModel.Movie_Id" type="number" class="form-control" min="@Model.SessionModel.Movie_Id" max="@Model.SessionModel.Movie_Id" />
+				<span asp-validation-for="SessionModel.Movie_Id" class="text-danger"></span>
+			</div>
 			<div class="form-group">
 				<label asp-for="SessionModel.Id" class="control-label"></label>
 				<input asp-for="SessionModel.Id" type="number" class="form-control" min="@Model.SessionModel.Id" max="@Model.SessionModel.Id" />

@@ -16,7 +16,7 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public List<SessionModel> GetList(uint movieId)
+        public List<SessionModel> GetListByMovieId(uint movieId)
         {
             List<SessionModel> list = new();
 

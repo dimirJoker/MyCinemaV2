@@ -6,7 +6,7 @@
 	<h4>Детали фильма</h4>
 	<div>
 		@Html.ActionLink("Back", "Index", new {Username = "root", Password = "root"}) |
-		@Html.ActionLink("Edit", "EditMovie", new {id = Model.MovieModel.Id}) |
+		@Html.ActionLink("Edit", "UpdateMovie", new {id = Model.MovieModel.Id}) |
 		@Html.ActionLink("Delete", "DeleteMovie", new {id = Model.MovieModel.Id})
 	</div>
 	<hr />
@@ -80,7 +80,7 @@
 						@Html.DisplayFor(modelItem => item.Session)
 					</td>
 					<td>
-						@Html.ActionLink("Edit", "EditSession", new {id=item.Id}) |
+						@Html.ActionLink("Edit", "UpdateSession", new {id = item.Id}) |
 						@Html.ActionLink("Delete", "DeleteSession", new {id=item.Id})@*--------------------TO DO--------------------*@
 					</td>
 				</tr>

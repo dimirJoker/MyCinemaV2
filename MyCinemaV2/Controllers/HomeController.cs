@@ -25,7 +25,7 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             ViewModel viewModel = new()
             {
-                SessionsList = sessionTable.GetList(id),
+                SessionsList = sessionTable.GetListByMovieId(id),
                 MovieModel = moviesTable.GetModel(id)
             };
             return View(viewModel);
@@ -36,7 +36,7 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             ViewModel viewModel = new()
             {
-                SeatsList = seatsTable.GetList(sessionId),
+                SeatsList = seatsTable.GetListBySessionId(sessionId),
                 MovieModel = moviesTable.GetModel(movieId)
             };
             return View(viewModel);
@@ -44,7 +44,7 @@ namespace MyCinemaV2.Controllers
         public IActionResult Ticket(uint movieId, uint seatId)
         {
             SeatsTable seatsTable = new();
-            seatsTable.SetStatusById(seatId, 1);
+            seatsTable.SetStatus(seatId, 1);
 
             MoviesTable moviesTable = new();
             ViewModel viewModel = new()

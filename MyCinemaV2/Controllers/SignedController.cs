@@ -25,7 +25,7 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             ViewModel viewModel = new()
             {
-                SessionsList = sessionTable.GetList(id),
+                SessionsList = sessionTable.GetListByMovieId(id),
                 MovieModel = moviesTable.GetModel(id)
             };
             return View(viewModel);
@@ -44,7 +44,7 @@ namespace MyCinemaV2.Controllers
                 return RedirectToAction("Index", new { Username = "root", Password = "root" });
             }
         }
-        public IActionResult EditMovie(MovieModel movie)
+        public IActionResult UpdateMovie(MovieModel movie)
         {
             MoviesTable moviesTable = new();
 
@@ -73,20 +73,24 @@ namespace MyCinemaV2.Controllers
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
 
-        public IActionResult EditSession(uint id)
+        public IActionResult UpdateSession(SessionModel session)
         {
-            SeatsTable seatsTable = new();
-            SessionsTable sessionsTable = new();
-            ViewModel viewModel = new()
+            if (session.Session == null)
             {
-                SeatsList = seatsTable.GetList(id),
-                SessionModel = sessionsTable.GetModel(id)
-            };
-            return View(viewModel);
-        }
-        public IActionResult UpdateSession(SessionModel session) /*===========TO DEBUG===========*/
-        {
-            return RedirectToAction("Session", new { id = session.Id });
+                SeatsTable seatsTable = new();
+                SessionsTable sessionsTable = new();
+                ViewModel viewModel = new()
+                {
+                    SeatsList = seatsTable.GetListBySessionId((uint)session.Id),
+                    SessionModel = sessionsTable.GetModel((uint)session.Id)
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("UpdateSession", new { id = session.Id });
+            }
         }
         public IActionResult DeleteSession(uint id)/*--------------------TO DO--------------------*/
         {
