@@ -22,14 +22,13 @@ namespace MyCinemaV2.Controllers
         public IActionResult Movie(uint id)
         {
             SessionsTable sessionTable = new();
-            //ViewBag.SessionsList = sessionTable.GetSessionsList(id);
-
             MoviesTable moviesTable = new();
-            //moviesTable.GetMovieModel(id)
-
-
-
-            return View();
+            ViewModel viewModel = new()
+            {
+                SessionsList= sessionTable.GetSessionsList(id),
+                MovieModel= moviesTable.GetMovieModel(id)
+            };
+            return View(viewModel);
         }
         public IActionResult CreateMovie(MovieModel movie)
         {
@@ -68,10 +67,13 @@ namespace MyCinemaV2.Controllers
         public IActionResult EditSession(uint id)
         {
             SeatsTable seatsTable = new();
-            ViewBag.SeatsList = seatsTable.GetSeatsList(id);
-
             SessionsTable sessionsTable = new();
-            return View(sessionsTable.GetSessionModel(id));
+            ViewModel viewModel = new()
+            {
+                SeatsList= seatsTable.GetSeatsList(id),
+                SessionModel= sessionsTable.GetSessionModel(id)
+            };
+            return View(viewModel);
         }
         public IActionResult UpdateSession(SessionModel session) /*===========TO DEBUG===========*/
         {
@@ -81,6 +83,7 @@ namespace MyCinemaV2.Controllers
         {
             return null;
         }
+
         public IActionResult UpdateSeat(SeatModel seat)
         {
             SeatsTable seatsTable = new();

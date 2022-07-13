@@ -1,23 +1,24 @@
-﻿@model MyCinemaV2.Models.SessionModel
+﻿@model MyCinemaV2.Models.ViewModel
+@*@model MyCinemaV2.Models.SessionModel*@
 @{
 	ViewData["Title"] = "Редактирование сеанса";
 }
 <h4>Редактирование сеанса</h4>
-@Html.ActionLink("Back", "Movie", new {id = Model.Movie_Id})
+@Html.ActionLink("Back", "Movie", new {id = Model.SessionModel.Movie_Id})
 <hr />
 <div class="row">
 	<div class="col-md-4">
 		<form asp-action="UpdateSession">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label asp-for="Id" class="control-label"></label>
-				<input asp-for="Id" type="number" class="form-control" min="@Model.Id" max="@Model.Id" />
-				<span asp-validation-for="Id" class="text-danger"></span>
+				<label asp-for="SessionModel.Id" class="control-label"></label>
+				<input asp-for="SessionModel.Id" type="number" class="form-control" min="@Model.SessionModel.Id" max="@Model.SessionModel.Id" />
+				<span asp-validation-for="SessionModel.Id" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="Session" class="control-label"></label>
-				<input asp-for="Session" type="datetime-local" class="form-control" />
-				<span asp-validation-for="Session" class="text-danger"></span>
+				<label asp-for="SessionModel.Session" class="control-label"></label>
+				<input asp-for="SessionModel.Session" type="datetime-local" class="form-control" />
+				<span asp-validation-for="SessionModel.Session" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<input type="submit" value="Save" class="btn btn-primary" />
@@ -36,9 +37,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if (ViewBag.SeatsList != null && ViewBag.SeatsList.Count > 0)
+		@if (Model.SeatsList != null && Model.SeatsList.Count > 0)
 		{
-			@foreach (SeatModel seat in ViewBag.SeatsList)
+			@foreach (SeatModel seat in Model.SeatsList)
 			{
 				<form asp-action="UpdateSeat">
 				<tr>
