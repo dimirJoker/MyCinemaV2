@@ -44,6 +44,7 @@ namespace MyCinemaV2.Services
                 }
                 catch (Exception ex)
                 {
+                    _connection.Close();
                 }
             }
             return list;
@@ -76,6 +77,7 @@ namespace MyCinemaV2.Services
                 }
                 catch (Exception ex)
                 {
+                    _connection.Close();
                 }
             }
             return seat;
@@ -96,6 +98,7 @@ namespace MyCinemaV2.Services
                 }
                 catch (Exception ex)
                 {
+                    _connection.Close();
                 }
             }
         }
@@ -114,6 +117,7 @@ namespace MyCinemaV2.Services
                 }
                 catch (Exception ex)
                 {
+                    _connection.Close();
                 }
             }
         }

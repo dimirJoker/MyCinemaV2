@@ -27,6 +27,8 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             //moviesTable.GetMovieModel(id)
 
+
+
             return View();
         }
         public IActionResult CreateMovie(MovieModel movie)
