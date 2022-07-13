@@ -16,7 +16,7 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public void Create(MovieModel movie)
+        public void CreateModel(MovieModel movie)
         {
             using (_connection)
             {
@@ -41,7 +41,7 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public List<MovieModel> GetMoviesList(uint status)
+        public List<MovieModel> GetList(uint status)
         {
             List<MovieModel> list = new();
 
@@ -77,7 +77,7 @@ namespace MyCinemaV2.Services
             }
             return list;
         }
-        public List<MovieModel> GetMoviesList()
+        public List<MovieModel> GetList()
         {
             List<MovieModel> list = new();
 
@@ -112,7 +112,7 @@ namespace MyCinemaV2.Services
             }
             return list;
         }
-        public MovieModel GetMovieModel(uint id)
+        public MovieModel GetModel(uint id)
         {
             MovieModel movie = null;
 
@@ -148,7 +148,7 @@ namespace MyCinemaV2.Services
             }
             return movie;
         }
-        public void Update(MovieModel movie)
+        public void UpdateModel(MovieModel movie)
         {
             using (_connection)
             {
@@ -174,7 +174,7 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void Delete(uint id)
+        public void DeleteById(uint id)
         {
             using (_connection)
             {

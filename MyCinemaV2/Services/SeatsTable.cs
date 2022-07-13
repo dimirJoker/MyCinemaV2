@@ -16,7 +16,7 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public List<SeatModel> GetSeatsList(uint sessionId)
+        public List<SeatModel> GetList(uint sessionId)
         {
             List<SeatModel> list = new();
 
@@ -50,7 +50,7 @@ namespace MyCinemaV2.Services
             }
             return list;
         }
-        public SeatModel GetSeatModel(uint id)
+        public SeatModel GetModel(uint id)
         {
             SeatModel seat = null;
 
@@ -84,7 +84,7 @@ namespace MyCinemaV2.Services
             }
             return seat;
         }
-        public void Update(SeatModel seat)
+        public void UpdateModel(SeatModel seat)
         {
             using (_connection)
             {
@@ -104,12 +104,13 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void Buy(uint id)
+        public void SetStatusById(uint id, uint status)
         {
             using (_connection)
             {
-                MySqlCommand cmd = new("UPDATE seatstable SET Status = 1 WHERE Id = @id", _connection);
+                MySqlCommand cmd = new("UPDATE seatstable SET Status = @status WHERE Id = @id", _connection);
                 cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@status", status);
 
                 try
                 {
@@ -123,7 +124,7 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void Delete(uint movieId)
+        public void DeleteByMovieId(uint movieId)
         {
             using (_connection)
             {

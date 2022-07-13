@@ -11,7 +11,7 @@ namespace MyCinemaV2.Controllers
             if (Username == "root" && Password == "root")
             {
                 MoviesTable moviesTable = new();
-                return View(moviesTable.GetMoviesList());
+                return View(moviesTable.GetList());
             }
             else
             {
@@ -25,8 +25,8 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             ViewModel viewModel = new()
             {
-                SessionsList = sessionTable.GetSessionsList(id),
-                MovieModel = moviesTable.GetMovieModel(id)
+                SessionsList = sessionTable.GetList(id),
+                MovieModel = moviesTable.GetModel(id)
             };
             return View(viewModel);
         }
@@ -39,7 +39,7 @@ namespace MyCinemaV2.Controllers
             else
             {
                 MoviesTable moviesTable = new();
-                moviesTable.Create(movie);
+                moviesTable.CreateModel(movie);
 
                 return RedirectToAction("Index", new { Username = "root", Password = "root" });
             }
@@ -50,11 +50,11 @@ namespace MyCinemaV2.Controllers
 
             if (movie.Name == null)
             {
-                return View(moviesTable.GetMovieModel((uint)movie.Id));
+                return View(moviesTable.GetModel((uint)movie.Id));
             }
             else
             {
-                moviesTable.Update(movie);
+                moviesTable.UpdateModel(movie);
 
                 return RedirectToAction("Movie", new { id = movie.Id });
             }
@@ -62,13 +62,13 @@ namespace MyCinemaV2.Controllers
         public IActionResult DeleteMovie(uint id)
         {
             MoviesTable moviesTable = new();
-            moviesTable.Delete(id);
+            moviesTable.DeleteById(id);
 
             SessionsTable sessionsTable = new();
-            sessionsTable.Delete(id);
+            sessionsTable.DeleteByMovieId(id);
 
             SeatsTable seatsTable = new();
-            seatsTable.Delete(id);
+            seatsTable.DeleteByMovieId(id);
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
@@ -79,8 +79,8 @@ namespace MyCinemaV2.Controllers
             SessionsTable sessionsTable = new();
             ViewModel viewModel = new()
             {
-                SeatsList = seatsTable.GetSeatsList(id),
-                SessionModel = sessionsTable.GetSessionModel(id)
+                SeatsList = seatsTable.GetList(id),
+                SessionModel = sessionsTable.GetModel(id)
             };
             return View(viewModel);
         }
@@ -96,7 +96,7 @@ namespace MyCinemaV2.Controllers
         public IActionResult UpdateSeat(SeatModel seat)
         {
             SeatsTable seatsTable = new();
-            seatsTable.Update(seat);
+            seatsTable.UpdateModel(seat);
 
             return RedirectToAction("EditSession", new { id = seat.Session_Id });
         }

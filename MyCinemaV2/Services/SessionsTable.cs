@@ -16,7 +16,7 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public List<SessionModel> GetSessionsList(uint movieId)
+        public List<SessionModel> GetList(uint movieId)
         {
             List<SessionModel> list = new();
 
@@ -47,7 +47,7 @@ namespace MyCinemaV2.Services
             }
             return list;
         }
-        public SessionModel GetSessionModel(uint id)
+        public SessionModel GetModel(uint id)
         {
             SessionModel session = null;
 
@@ -78,7 +78,7 @@ namespace MyCinemaV2.Services
             }
             return session;
         }
-        public void Delete(uint movieId)
+        public void DeleteByMovieId(uint movieId)
         {
             using (_connection)
             {
