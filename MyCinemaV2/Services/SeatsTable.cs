@@ -35,10 +35,11 @@ namespace MyCinemaV2.Services
                         list.Add(new SeatModel
                         {
                             Id = (uint)reader[0],
-                            Session_Id = (uint)reader[1],
-                            Seat_Row = (uint)reader[2],
-                            Seat_Number = (uint)reader[3],
-                            Status = (uint)reader[4]
+                            Movie_Id = (uint)reader[1],
+                            Session_Id = (uint)reader[2],
+                            Seat_Row = (uint)reader[3],
+                            Seat_Number = (uint)reader[4],
+                            Status = (uint)reader[5]
                         });
                     }
                 }
@@ -68,10 +69,11 @@ namespace MyCinemaV2.Services
                         seat = new SeatModel
                         {
                             Id = (uint)reader[0],
-                            Session_Id = (uint)reader[1],
-                            Seat_Row = (uint)reader[2],
-                            Seat_Number = (uint)reader[3],
-                            Status = (uint)reader[4]
+                            Movie_Id = (uint)reader[1],
+                            Session_Id = (uint)reader[2],
+                            Seat_Row = (uint)reader[3],
+                            Seat_Number = (uint)reader[4],
+                            Status = (uint)reader[5]
                         };
                     }
                 }
@@ -108,6 +110,25 @@ namespace MyCinemaV2.Services
             {
                 MySqlCommand cmd = new("UPDATE seatstable SET Status = 1 WHERE Id = @id", _connection);
                 cmd.Parameters.AddWithValue("@id", id);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+        }
+        public void Delete(uint movieId)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("DELETE FROM seatstable WHERE Movie_Id = @movieId", _connection);
+                cmd.Parameters.AddWithValue("@movieId", movieId);
 
                 try
                 {

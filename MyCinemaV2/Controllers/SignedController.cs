@@ -25,8 +25,8 @@ namespace MyCinemaV2.Controllers
             MoviesTable moviesTable = new();
             ViewModel viewModel = new()
             {
-                SessionsList= sessionTable.GetSessionsList(id),
-                MovieModel= moviesTable.GetMovieModel(id)
+                SessionsList = sessionTable.GetSessionsList(id),
+                MovieModel = moviesTable.GetMovieModel(id)
             };
             return View(viewModel);
         }
@@ -44,25 +44,34 @@ namespace MyCinemaV2.Controllers
                 return RedirectToAction("Index", new { Username = "root", Password = "root" });
             }
         }
-        public IActionResult EditMovie(uint id)
+        public IActionResult EditMovie(MovieModel movie)
         {
             MoviesTable moviesTable = new();
-            return View(moviesTable.GetMovieModel(id));
-        }
-        public IActionResult UpdateMovie(MovieModel movie)
-        {
-            MoviesTable moviesTable = new();
-            moviesTable.Update(movie);
 
-            return RedirectToAction("Movie", new { id = movie.Id });
+            if (movie.Name == null)
+            {
+                return View(moviesTable.GetMovieModel((uint)movie.Id));
+            }
+            else
+            {
+                moviesTable.Update(movie);
+
+                return RedirectToAction("Movie", new { id = movie.Id });
+            }
         }
         public IActionResult DeleteMovie(uint id)
         {
             MoviesTable moviesTable = new();
             moviesTable.Delete(id);
 
+            SessionsTable sessionsTable = new();
+            sessionsTable.Delete(id);
+
+            SeatsTable seatsTable = new();
+            seatsTable.Delete(id);
+
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
-        }/*--------------------TO DO--------------------*/
+        }
 
         public IActionResult EditSession(uint id)
         {
@@ -70,8 +79,8 @@ namespace MyCinemaV2.Controllers
             SessionsTable sessionsTable = new();
             ViewModel viewModel = new()
             {
-                SeatsList= seatsTable.GetSeatsList(id),
-                SessionModel= sessionsTable.GetSessionModel(id)
+                SeatsList = seatsTable.GetSeatsList(id),
+                SessionModel = sessionsTable.GetSessionModel(id)
             };
             return View(viewModel);
         }

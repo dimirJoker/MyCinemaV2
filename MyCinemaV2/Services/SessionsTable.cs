@@ -78,5 +78,24 @@ namespace MyCinemaV2.Services
             }
             return session;
         }
+        public void Delete(uint movieId)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("DELETE FROM sessiontable WHERE Movie_Id = @movieId", _connection);
+                cmd.Parameters.AddWithValue("@movieId", movieId);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+        }
     }
 }
