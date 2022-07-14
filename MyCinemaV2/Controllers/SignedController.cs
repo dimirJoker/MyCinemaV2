@@ -88,6 +88,15 @@ namespace MyCinemaV2.Controllers
                 SessionsTable sessionsTable = new();
                 sessionsTable.Create(viewModel.SessionModel);
 
+                SeatModel seat = new()
+                {
+                    Movie_Id = viewModel.SessionModel.Movie_Id,
+                    Session_Id = viewModel.SessionModel.Id
+                };
+
+                SeatsTable seatsTable = new();
+                seatsTable.Create(seat);
+
                 return RedirectToAction("Movie", new { id = viewModel.SessionModel.Movie_Id });
             }
         }

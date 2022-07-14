@@ -16,6 +16,37 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
+        public void Create(SeatModel seat)
+        {
+            using (_connection)
+            {
+                var row = 1;
+                for (var num = 1; num <= 50; num++)
+                {
+                    if (num % 10 == 1)
+                    {
+                        row++;
+                    }
+
+                    MySqlCommand cmd = new("INSERT INTO seatstable (Movie_Id, Session_Id, Seat_Row, Seat_Number) VALUES (@movieId, @sessionId, @seatRow, @seatNumber)", _connection);
+                    cmd.Parameters.AddWithValue("@movieId", seat.Movie_Id);
+                    cmd.Parameters.AddWithValue("@sessionId", seat.Session_Id);
+                    cmd.Parameters.AddWithValue("@seatRow", row);
+                    cmd.Parameters.AddWithValue("@seatNumber", num);
+
+                    try
+                    {
+                        _connection.Open();
+
+                        MySqlDataReader reader = cmd.ExecuteReader();
+                    }
+                    catch (Exception ex)
+                    {
+                        _connection.Close();
+                    }
+                }
+            }
+        }
         public SeatModel GetModel(uint id)
         {
             SeatModel seat = null;
