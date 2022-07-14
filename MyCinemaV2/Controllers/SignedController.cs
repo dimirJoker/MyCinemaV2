@@ -91,7 +91,7 @@ namespace MyCinemaV2.Controllers
                 SeatModel seat = new()
                 {
                     Movie_Id = viewModel.SessionModel.Movie_Id,
-                    Session_Id = sessionsTable.GetMaxOf("Id")
+                    Session_Id = sessionsTable.GetIdMaxValue()
                 };
 
                 SeatsTable seatsTable = new();
@@ -121,6 +121,13 @@ namespace MyCinemaV2.Controllers
                 return RedirectToAction("Movie", new { id = viewModel.SessionModel.Movie_Id });
             }
         }
+        public IActionResult UpdateSeat(SeatModel seat)
+        {
+            SeatsTable seatsTable = new();
+            seatsTable.Update(seat);
+
+            return RedirectToAction("UpdateSession", new { id = seat.Session_Id });
+        }
         public IActionResult DeleteSession(uint id)
         {
             SeatsTable seatsTable = new();
@@ -131,14 +138,6 @@ namespace MyCinemaV2.Controllers
             sessionsTable.Delete(id);
 
             return RedirectToAction("Movie", new { id = session.Movie_Id });
-        }
-
-        public IActionResult UpdateSeat(SeatModel seat)
-        {
-            SeatsTable seatsTable = new();
-            seatsTable.Update(seat);
-
-            return RedirectToAction("UpdateSession", new { id = seat.Session_Id });
         }
     }
 }

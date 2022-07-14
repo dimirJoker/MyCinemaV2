@@ -98,6 +98,25 @@ namespace MyCinemaV2.Services
             }
             return list;
         }
+        public uint? GetIdMaxValue()
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("SELECT MAX(Id) FROM sessiontable", _connection);
+
+                try
+                {
+                    _connection.Open();
+
+                    return (uint)cmd.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+            return null;
+        }
         public void Update(SessionModel session)
         {
             using (_connection)

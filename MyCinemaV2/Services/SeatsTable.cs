@@ -23,7 +23,7 @@ namespace MyCinemaV2.Services
                 var row = 1;
                 for (var num = 1; num <= 50; num++)
                 {
-                    if (num % 10 == 1)
+                    if (num == 11 || num == 21 || num == 31 || num == 41)
                     {
                         row++;
                     }
@@ -39,6 +39,8 @@ namespace MyCinemaV2.Services
                         _connection.Open();
 
                         MySqlDataReader reader = cmd.ExecuteReader();
+
+                        _connection.Close();
                     }
                     catch (Exception ex)
                     {
