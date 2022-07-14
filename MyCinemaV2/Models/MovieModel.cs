@@ -14,6 +14,7 @@ namespace MyCinemaV2.Models
         [Required]
         public string Description { get; set; }
 
+        [Required]
         [DataType(DataType.Time)]
         public TimeSpan? Duration { get; set; }
 
