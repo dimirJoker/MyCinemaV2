@@ -73,23 +73,22 @@ namespace MyCinemaV2.Controllers
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
 
-        public IActionResult UpdateSession(SessionModel session)
+        public IActionResult UpdateSession(uint id, ViewModel viewModel)
         {
-            if (session.Session == null)
+            if (viewModel.SessionModel == null)
             {
                 SeatsTable seatsTable = new();
                 SessionsTable sessionsTable = new();
-                ViewModel viewModel = new()
+                viewModel = new()
                 {
-                    SeatsList = seatsTable.GetListBySessionId((uint)session.Id),
-                    SessionModel = sessionsTable.GetModel((uint)session.Id)
+                    SeatsList = seatsTable.GetListBySessionId(id),
+                    SessionModel = sessionsTable.GetModel(id)
                 };
-
                 return View(viewModel);
             }
             else
             {
-                return RedirectToAction("UpdateSession", new { id = session.Id });
+                return RedirectToAction("Movie", new { id = id });
             }
         }
         public IActionResult DeleteSession(uint id)/*--------------------TO DO--------------------*/
