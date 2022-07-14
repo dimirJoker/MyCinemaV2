@@ -39,7 +39,7 @@ namespace MyCinemaV2.Controllers
             else
             {
                 MoviesTable moviesTable = new();
-                moviesTable.CreateModel(movie);
+                moviesTable.Create(movie);
 
                 return RedirectToAction("Index", new { Username = "root", Password = "root" });
             }
@@ -54,31 +54,32 @@ namespace MyCinemaV2.Controllers
             }
             else
             {
-                moviesTable.UpdateModel(movie);
+                moviesTable.Update(movie);
 
                 return RedirectToAction("Movie", new { id = movie.Id });
             }
         }
         public IActionResult DeleteMovie(uint id)
         {
-            MoviesTable moviesTable = new();
-            moviesTable.DeleteById(id);
+            SeatsTable seatsTable = new();
+            seatsTable.DeleteAllByMovieId(id);
 
             SessionsTable sessionsTable = new();
-            sessionsTable.DeleteByMovieId(id);
+            sessionsTable.DeleteAllByMovieId(id);
 
-            SeatsTable seatsTable = new();
-            seatsTable.DeleteByMovieId(id);
+            MoviesTable moviesTable = new();
+            moviesTable.Delete(id);
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
 
         public IActionResult UpdateSession(uint id, ViewModel viewModel)
         {
+            SessionsTable sessionsTable = new();
+
             if (viewModel.SessionModel == null)
             {
                 SeatsTable seatsTable = new();
-                SessionsTable sessionsTable = new();
                 viewModel = new()
                 {
                     SeatsList = seatsTable.GetListBySessionId(id),
@@ -88,20 +89,28 @@ namespace MyCinemaV2.Controllers
             }
             else
             {
-                return RedirectToAction("Movie", new { id = id });
+                sessionsTable.Update(viewModel.SessionModel);
+
+                return RedirectToAction("Movie", new { id = viewModel.SessionModel.Movie_Id });
             }
         }
-        public IActionResult DeleteSession(uint id)/*--------------------TO DO--------------------*/
-        {
-            return null;
-        }
-
         public IActionResult UpdateSeat(SeatModel seat)
         {
             SeatsTable seatsTable = new();
-            seatsTable.UpdateModel(seat);
+            seatsTable.Update(seat);
 
-            return RedirectToAction("EditSession", new { id = seat.Session_Id });
+            return RedirectToAction("UpdateSession", new { id = seat.Session_Id });
+        }
+        public IActionResult DeleteSession(uint id)
+        {
+            SeatsTable seatsTable = new();
+            seatsTable.DeleteAllBySessionId(id);
+
+            SessionsTable sessionsTable = new();
+            var session = sessionsTable.GetModel(id);
+            sessionsTable.Delete(id);
+
+            return RedirectToAction("Movie", new { id = session.Movie_Id });
         }
     }
 }

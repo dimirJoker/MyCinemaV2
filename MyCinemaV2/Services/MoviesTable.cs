@@ -16,7 +16,7 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public void CreateModel(MovieModel movie)
+        public void Create(MovieModel movie)
         {
             using (_connection)
             {
@@ -40,77 +40,6 @@ namespace MyCinemaV2.Services
                     _connection.Close();
                 }
             }
-        }
-        public List<MovieModel> GetList(uint status)
-        {
-            List<MovieModel> list = new();
-
-            using (_connection)
-            {
-                MySqlCommand cmd = new("SELECT * FROM moviestable WHERE Status = @status", _connection);
-                cmd.Parameters.AddWithValue("@status", status);
-
-                try
-                {
-                    _connection.Open();
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        list.Add(new MovieModel
-                        {
-                            Id = (uint)reader[0],
-                            Name = (string)reader[1],
-                            Description = (string)reader[2],
-                            Duration = (TimeSpan)reader[3],
-                            Thumbnail = (string)reader[4],
-                            Price = (float)reader[5],
-                            Genre = (string)reader[6],
-                            Status = (uint)reader[7]
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _connection.Close();
-                }
-            }
-            return list;
-        }
-        public List<MovieModel> GetList()
-        {
-            List<MovieModel> list = new();
-
-            using (_connection)
-            {
-                MySqlCommand cmd = new("SELECT * FROM moviestable ORDER BY Status DESC", _connection);
-
-                try
-                {
-                    _connection.Open();
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        list.Add(new MovieModel
-                        {
-                            Id = (uint)reader[0],
-                            Name = (string)reader[1],
-                            Description = (string)reader[2],
-                            Duration = (TimeSpan)reader[3],
-                            Thumbnail = (string)reader[4],
-                            Price = (float)reader[5],
-                            Genre = (string)reader[6],
-                            Status = (uint)reader[7]
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _connection.Close();
-                }
-            }
-            return list;
         }
         public MovieModel GetModel(uint id)
         {
@@ -148,7 +77,78 @@ namespace MyCinemaV2.Services
             }
             return movie;
         }
-        public void UpdateModel(MovieModel movie)
+        public List<MovieModel> GetList()
+        {
+            List<MovieModel> list = new();
+
+            using (_connection)
+            {
+                MySqlCommand cmd = new("SELECT * FROM moviestable ORDER BY Status DESC", _connection);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(new MovieModel
+                        {
+                            Id = (uint)reader[0],
+                            Name = (string)reader[1],
+                            Description = (string)reader[2],
+                            Duration = (TimeSpan)reader[3],
+                            Thumbnail = (string)reader[4],
+                            Price = (float)reader[5],
+                            Genre = (string)reader[6],
+                            Status = (uint)reader[7]
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+            return list;
+        }
+        public List<MovieModel> GetList(uint status)
+        {
+            List<MovieModel> list = new();
+
+            using (_connection)
+            {
+                MySqlCommand cmd = new("SELECT * FROM moviestable WHERE Status = @status", _connection);
+                cmd.Parameters.AddWithValue("@status", status);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(new MovieModel
+                        {
+                            Id = (uint)reader[0],
+                            Name = (string)reader[1],
+                            Description = (string)reader[2],
+                            Duration = (TimeSpan)reader[3],
+                            Thumbnail = (string)reader[4],
+                            Price = (float)reader[5],
+                            Genre = (string)reader[6],
+                            Status = (uint)reader[7]
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+            return list;
+        }
+        public void Update(MovieModel movie)
         {
             using (_connection)
             {
@@ -174,7 +174,7 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void DeleteById(uint id)
+        public void Delete(uint id)
         {
             using (_connection)
             {

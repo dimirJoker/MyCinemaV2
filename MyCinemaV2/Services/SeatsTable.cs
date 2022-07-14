@@ -16,40 +16,6 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public List<SeatModel> GetListBySessionId(uint sessionId)
-        {
-            List<SeatModel> list = new();
-
-            using (_connection)
-            {
-                MySqlCommand cmd = new("SELECT * FROM seatstable WHERE Session_Id = @sessionId", _connection);
-                cmd.Parameters.AddWithValue("@sessionId", sessionId);
-
-                try
-                {
-                    _connection.Open();
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        list.Add(new SeatModel
-                        {
-                            Id = (uint)reader[0],
-                            Movie_Id = (uint)reader[1],
-                            Session_Id = (uint)reader[2],
-                            Seat_Row = (uint)reader[3],
-                            Seat_Number = (uint)reader[4],
-                            Status = (uint)reader[5]
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _connection.Close();
-                }
-            }
-            return list;
-        }
         public SeatModel GetModel(uint id)
         {
             SeatModel seat = null;
@@ -84,7 +50,41 @@ namespace MyCinemaV2.Services
             }
             return seat;
         }
-        public void UpdateModel(SeatModel seat)
+        public List<SeatModel> GetListBySessionId(uint sessionId)
+        {
+            List<SeatModel> list = new();
+
+            using (_connection)
+            {
+                MySqlCommand cmd = new("SELECT * FROM seatstable WHERE Session_Id = @sessionId", _connection);
+                cmd.Parameters.AddWithValue("@sessionId", sessionId);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(new SeatModel
+                        {
+                            Id = (uint)reader[0],
+                            Movie_Id = (uint)reader[1],
+                            Session_Id = (uint)reader[2],
+                            Seat_Row = (uint)reader[3],
+                            Seat_Number = (uint)reader[4],
+                            Status = (uint)reader[5]
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+            return list;
+        }
+        public void Update(SeatModel seat)
         {
             using (_connection)
             {
@@ -124,12 +124,31 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void DeleteByMovieId(uint movieId)
+        public void DeleteAllByMovieId(uint movieId)
         {
             using (_connection)
             {
                 MySqlCommand cmd = new("DELETE FROM seatstable WHERE Movie_Id = @movieId", _connection);
                 cmd.Parameters.AddWithValue("@movieId", movieId);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+        }
+        public void DeleteAllBySessionId(uint sessionId)
+        {
+            using (_connection)
+            {
+                MySqlCommand cmd = new("DELETE FROM seatstable WHERE Session_Id = @sessionId", _connection);
+                cmd.Parameters.AddWithValue("@sessionId", sessionId);
 
                 try
                 {
