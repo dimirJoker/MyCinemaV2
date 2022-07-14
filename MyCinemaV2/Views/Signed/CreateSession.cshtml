@@ -1,0 +1,32 @@
+﻿@model MyCinemaV2.Models.ViewModel
+@{
+	ViewData["Title"] = "Создание сеанса";
+}
+<h4>SessionModel</h4>
+@Html.ActionLink("Back", "Movie", new {id = Model.SessionModel.Movie_Id})
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="CreateSession">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="SessionModel.Movie_Id" class="control-label"></label>
+				<input asp-for="SessionModel.Movie_Id" class="form-control" min="@Model.SessionModel.Movie_Id" max="@Model.SessionModel.Movie_Id" />
+				<span asp-validation-for="SessionModel.Movie_Id" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="SessionModel.Session" class="control-label"></label>
+				<input asp-for="SessionModel.Session" class="form-control" />
+				<span asp-validation-for="SessionModel.Session" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}

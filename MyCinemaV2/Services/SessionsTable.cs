@@ -16,36 +16,25 @@ namespace MyCinemaV2.Services
         };
         private static MySqlConnection _connection = new(_connectionStringBuilder.ConnectionString);
 
-        public List<SessionModel> GetListByMovieId(uint movieId)
+        public void Create(SessionModel session)
         {
-            List<SessionModel> list = new();
-
             using (_connection)
             {
-                MySqlCommand cmd = new("SELECT * FROM sessiontable WHERE Movie_Id = @movieId ORDER BY Session ASC", _connection);
-                cmd.Parameters.AddWithValue("@movieId", movieId);
+                MySqlCommand cmd = new("INSERT INTO sessiontable (Movie_Id, Session) VALUES (@movieId, @session)", _connection);
+                cmd.Parameters.AddWithValue("@movieId", session.Movie_Id);
+                cmd.Parameters.AddWithValue("@session", session.Session);
 
                 try
                 {
                     _connection.Open();
 
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        list.Add(new SessionModel
-                        {
-                            Id = (uint)reader[0],
-                            Movie_Id = (uint)reader[1],
-                            Session = (DateTime)reader[2]
-                        });
-                    }
                 }
                 catch (Exception ex)
                 {
                     _connection.Close();
                 }
             }
-            return list;
         }
         public SessionModel GetModel(uint id)
         {
@@ -77,6 +66,37 @@ namespace MyCinemaV2.Services
                 }
             }
             return session;
+        }
+        public List<SessionModel> GetListByMovieId(uint movieId)
+        {
+            List<SessionModel> list = new();
+
+            using (_connection)
+            {
+                MySqlCommand cmd = new("SELECT * FROM sessiontable WHERE Movie_Id = @movieId ORDER BY Session ASC", _connection);
+                cmd.Parameters.AddWithValue("@movieId", movieId);
+
+                try
+                {
+                    _connection.Open();
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        list.Add(new SessionModel
+                        {
+                            Id = (uint)reader[0],
+                            Movie_Id = (uint)reader[1],
+                            Session = (DateTime)reader[2]
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _connection.Close();
+                }
+            }
+            return list;
         }
         public void Update(SessionModel session)
         {

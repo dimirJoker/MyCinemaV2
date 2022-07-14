@@ -124,12 +124,12 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void DeleteAllByMovieId(uint movieId)
+        public void DeleteAllBySessionId(uint sessionId)
         {
             using (_connection)
             {
-                MySqlCommand cmd = new("DELETE FROM seatstable WHERE Movie_Id = @movieId", _connection);
-                cmd.Parameters.AddWithValue("@movieId", movieId);
+                MySqlCommand cmd = new("DELETE FROM seatstable WHERE Session_Id = @sessionId", _connection);
+                cmd.Parameters.AddWithValue("@sessionId", sessionId);
 
                 try
                 {
@@ -143,12 +143,12 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public void DeleteAllBySessionId(uint sessionId)
+        public void DeleteAllByMovieId(uint movieId)
         {
             using (_connection)
             {
-                MySqlCommand cmd = new("DELETE FROM seatstable WHERE Session_Id = @sessionId", _connection);
-                cmd.Parameters.AddWithValue("@sessionId", sessionId);
+                MySqlCommand cmd = new("DELETE FROM seatstable WHERE Movie_Id = @movieId", _connection);
+                cmd.Parameters.AddWithValue("@movieId", movieId);
 
                 try
                 {
