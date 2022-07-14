@@ -91,7 +91,7 @@ namespace MyCinemaV2.Controllers
                 SeatModel seat = new()
                 {
                     Movie_Id = viewModel.SessionModel.Movie_Id,
-                    Session_Id = viewModel.SessionModel.Id
+                    Session_Id = sessionsTable.GetMaxOf("Id")
                 };
 
                 SeatsTable seatsTable = new();

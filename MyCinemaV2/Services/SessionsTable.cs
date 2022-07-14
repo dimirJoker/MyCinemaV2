@@ -36,29 +36,6 @@ namespace MyCinemaV2.Services
                 }
             }
         }
-        public uint? GetMaxOf(string columnName)
-        {
-            using (_connection)
-            {
-                MySqlCommand cmd = new("SELECT MAX( @columnName ) FROM sessiontable", _connection);
-                cmd.Parameters.AddWithValue("@columnName", columnName);
-
-                try
-                {
-                    _connection.Open();
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    return (uint)reader[0];
-                }
-                catch (Exception ex)
-                {
-                    _connection.Close();
-
-                    return null;
-                }
-            }
-        }
         public SessionModel GetModel(uint id)
         {
             SessionModel session = null;
