@@ -16,41 +16,62 @@ namespace MyCinemaV2.Controllers
 
         public IActionResult Index()
         {
-            MoviesTable moviesTable = new();
-            return View(moviesTable.GetList(1));
+            MovieModel movie = new()
+            {
+                Status = 1
+            };
+            return View(IMoviesDB.GetList(movie));
         }
-        public IActionResult Session(uint id)
+        public IActionResult Session(MovieModel movie)
         {
-            SessionsTable sessionTable = new();
-            MoviesTable moviesTable = new();
+            SessionModel session = new()
+            {
+                Movie_Id = movie.Id
+            };
+
             ViewModel viewModel = new()
             {
-                SessionsList = sessionTable.GetListByMovieId(id),
-                MovieModel = moviesTable.GetModel(id)
+                SessionsList = IMoviesDB.GetList(session),
+                MovieModel = IMoviesDB.GetModel(movie)
             };
             return View(viewModel);
         }
         public IActionResult Seat(uint movieId, uint sessionId)
         {
-            SeatsTable seatsTable = new();
-            MoviesTable moviesTable = new();
+            MovieModel movie = new()
+            {
+                Id = movieId
+            };
+
+            SeatModel seat = new()
+            {
+                Session_Id = sessionId
+            };
+
             ViewModel viewModel = new()
             {
-                SeatsList = seatsTable.GetListBySessionId(sessionId),
-                MovieModel = moviesTable.GetModel(movieId)
+                SeatsList = IMoviesDB.GetList(seat),
+                MovieModel = IMoviesDB.GetModel(movie)
             };
             return View(viewModel);
         }
         public IActionResult Ticket(uint movieId, uint seatId)
         {
-            SeatsTable seatsTable = new();
-            seatsTable.SetStatus(seatId, 1);
+            MovieModel movie = new()
+            {
+                Id = movieId
+            };
 
-            MoviesTable moviesTable = new();
+            SeatModel seat = new()
+            {
+                Id = seatId
+            };
+            IMoviesDB.SetStatus(seat, 1);
+
             ViewModel viewModel = new()
             {
-                SeatModel = seatsTable.GetModel(seatId),
-                MovieModel = moviesTable.GetModel(movieId)
+                SeatModel = IMoviesDB.GetModel(seat),
+                MovieModel = IMoviesDB.GetModel(movie)
             };
             return View(viewModel);
         }

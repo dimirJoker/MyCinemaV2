@@ -6,12 +6,12 @@ namespace MyCinemaV2.Controllers
 {
     public class SignedController : Controller
     {
-        public IActionResult Index(string Username, string Password)
+        public IActionResult Index(UserModel user)
         {
-            if (Username == "root" && Password == "root")
+            if (user.Username == "root" && user.Password == "root")
             {
-                MoviesTable moviesTable = new();
-                return View(moviesTable.GetList());
+                MovieModel movie = null;
+                return View(IMoviesDB.GetList(movie));
             }
             else
             {
@@ -27,48 +27,53 @@ namespace MyCinemaV2.Controllers
             }
             else
             {
-                MoviesTable moviesTable = new();
-                moviesTable.Create(movie);
+                IMoviesDB.Create(movie);
 
                 return RedirectToAction("Index", new { Username = "root", Password = "root" });
             }
         }
-        public IActionResult Movie(uint id)
+        public IActionResult Movie(MovieModel movie)
         {
-            SessionsTable sessionTable = new();
-            MoviesTable moviesTable = new();
+            SessionModel session = new()
+            {
+                Movie_Id = movie.Id
+            };
+
             ViewModel viewModel = new()
             {
-                SessionsList = sessionTable.GetListByMovieId(id),
-                MovieModel = moviesTable.GetModel(id)
+                SessionsList = IMoviesDB.GetList(session),
+                MovieModel = IMoviesDB.GetModel(movie)
             };
             return View(viewModel);
         }
         public IActionResult UpdateMovie(MovieModel movie)
         {
-            MoviesTable moviesTable = new();
-
             if (movie.Name == null)
             {
-                return View(moviesTable.GetModel((uint)movie.Id));
+                return View(IMoviesDB.GetModel(movie));
             }
             else
             {
-                moviesTable.Update(movie);
+                IMoviesDB.Update(movie);
 
                 return RedirectToAction("Movie", new { id = movie.Id });
             }
         }
-        public IActionResult DeleteMovie(uint id)
+        public IActionResult DeleteMovie(MovieModel movie)
         {
-            SeatsTable seatsTable = new();
-            seatsTable.DeleteAllByMovieId(id);
+            SeatModel seat = new()
+            {
+                Movie_Id = movie.Id
+            };
+            IMoviesDB.Delete(seat);
 
-            SessionsTable sessionsTable = new();
-            sessionsTable.DeleteAllByMovieId(id);
+            SessionModel session = new()
+            {
+                Movie_Id = movie.Id
+            };
+            IMoviesDB.Delete(session);
 
-            MoviesTable moviesTable = new();
-            moviesTable.Delete(id);
+            IMoviesDB.Delete(movie);
 
             return RedirectToAction("Index", new { Username = "root", Password = "root" });
         }
@@ -85,59 +90,60 @@ namespace MyCinemaV2.Controllers
             }
             else
             {
-                SessionsTable sessionsTable = new();
-                sessionsTable.Create(viewModel.SessionModel);
+                IMoviesDB.Create(viewModel.SessionModel);
 
                 SeatModel seat = new()
                 {
                     Movie_Id = viewModel.SessionModel.Movie_Id,
-                    Session_Id = sessionsTable.GetIdMaxValue()
+                    Session_Id = IMoviesDB.GetIdMaxValue(viewModel.SessionModel)
                 };
-
-                SeatsTable seatsTable = new();
-                seatsTable.Create(seat);
+                IMoviesDB.Create(seat);
 
                 return RedirectToAction("Movie", new { id = viewModel.SessionModel.Movie_Id });
             }
         }
-        public IActionResult UpdateSession(uint id, ViewModel viewModel)
+        public IActionResult UpdateSession(SessionModel session, ViewModel viewModel)
         {
-            SessionsTable sessionsTable = new();
-
             if (viewModel.SessionModel == null)
             {
-                SeatsTable seatsTable = new();
+                SeatModel seat = new()
+                {
+                    Session_Id = session.Id
+                };
+
                 viewModel = new()
                 {
-                    SeatsList = seatsTable.GetListBySessionId(id),
-                    SessionModel = sessionsTable.GetModel(id)
+                    SeatsList = IMoviesDB.GetList(seat),
+                    SessionModel = IMoviesDB.GetModel(session)
                 };
                 return View(viewModel);
             }
             else
             {
-                sessionsTable.Update(viewModel.SessionModel);
+                IMoviesDB.Update(viewModel.SessionModel);
 
                 return RedirectToAction("Movie", new { id = viewModel.SessionModel.Movie_Id });
             }
         }
         public IActionResult UpdateSeat(SeatModel seat)
         {
-            SeatsTable seatsTable = new();
-            seatsTable.Update(seat);
+            IMoviesDB.Update(seat);
 
             return RedirectToAction("UpdateSession", new { id = seat.Session_Id });
         }
-        public IActionResult DeleteSession(uint id)
+        public IActionResult DeleteSession(SessionModel session)
         {
-            SeatsTable seatsTable = new();
-            seatsTable.DeleteAllBySessionId(id);
+            SeatModel seat = new()
+            {
+                Session_Id = session.Id
+            };
+            IMoviesDB.Delete(seat);
 
-            SessionsTable sessionsTable = new();
-            var session = sessionsTable.GetModel(id);
-            sessionsTable.Delete(id);
+            var memo = IMoviesDB.GetModel(session);
 
-            return RedirectToAction("Movie", new { id = session.Movie_Id });
+            IMoviesDB.Delete(session);
+
+            return RedirectToAction("Movie", new { id = memo.Movie_Id });
         }
     }
 }
